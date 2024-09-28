@@ -13,6 +13,7 @@ int quantities[MAX_BOOKS];
 int bookCount = 0; // Count of current books
 
 // Function prototypes
+void clearBuffer();
 void addBook();
 void displayBooks();
 void searchBook();
@@ -34,7 +35,7 @@ int main() {
         printf("7. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        getchar(); // To consume newline
+        clearBuffer();
 
         switch (choice) {
             case 1: addBook();; break;
@@ -50,6 +51,12 @@ int main() {
 
     return 0;
 }
+
+void clearBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}
+
 void addBook() {
     char another;
     
@@ -57,6 +64,7 @@ void addBook() {
         if (bookCount < MAX_BOOKS) {
             printf("Enter book title, author, price, and quantity (title/author/price/quantity): ");
             scanf("%[^/]/%[^/]/%f/%d", titles[bookCount], authors[bookCount], &prices[bookCount], &quantities[bookCount]);
+            clearBuffer();
 
             printf("Book added successfully!\n");
             printf("Title: %s, Author: %s, Price: %.2f, Quantity: %d\n", 
@@ -70,6 +78,7 @@ void addBook() {
 
         printf("Do you want to add another book? (y/n): ");
         scanf(" %c", &another); // Note the space before %c to consume any leftover newline
+        clearBuffer();
 
     } while (another == 'y' || another == 'Y');
 }
@@ -90,6 +99,7 @@ void searchBook() {
     char title[TITLE_LEN];
     printf("Enter book title to search: ");
     scanf(" %[^\n]", title); // Read title to search
+    clearBuffer();
     for (int i = 0; i < bookCount ; i++) {
         if (strcmp(titles[i], title) == 0) { // Compare with existing titles
             // Print book details if found
@@ -106,10 +116,12 @@ void updateQuantity() {
     char title[TITLE_LEN];
     printf("Enter book title to update: ");
     scanf(" %[^\n]", title); // Read title to update
+    clearBuffer();
     for (int i = 0; i < bookCount; i++) {
         if (strcmp(titles[i], title) == 0) { // Check for matching title
             printf("Enter new quantity: ");
             scanf("%d", &quantities[i]); // Update quantity
+            clearBuffer();
 
             printf("quantity updated successfully!: ");
             printf("%s, Author: %s, Price: %.2f, Quantity: %d\n", 
@@ -125,6 +137,7 @@ void deleteBook() {
     char title[TITLE_LEN];
     printf("Enter book title to delete: ");
     scanf(" %[^\n]", title); // Read title to delete
+    clearBuffer();
     for (int i = 0; i < bookCount; i++) {
         if (strcmp(titles[i], title) == 0) { // Check for matching title
             // Shift all subsequent books down one position
