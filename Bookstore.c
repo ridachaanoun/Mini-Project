@@ -25,15 +25,15 @@ int main() {
     int choice;
 
     do {
-        printf("\n--- Book Stock Management System ---\n");
-        printf("1. Add a Book\n");
-        printf("2. Display All Books\n");
-        printf("3. Search for a Book\n");
-        printf("4. Update Book Quantity\n");
-        printf("5. Delete a Book\n");
-        printf("6. Total Books in Stock\n");
-        printf("7. Exit\n");
-        printf("Enter your choice: ");
+    printf("\033[0;33m\n--- Book Stock Management System ---\n\033[0m");
+    printf("1. \033[0;34mAdd a Book\033[0m\n");
+    printf("2. \033[0;34mDisplay All Books\033[0m\n");
+    printf("3. \033[0;34mSearch for a Book\033[0m\n");
+    printf("4. \033[0;34mUpdate Book Quantity\033[0m\n");
+    printf("5. \033[0;31mDelete a Book\033[0m\n");
+    printf("6. \033[0;34mTotal Books in Stock\033[0m\n");
+    printf("7. \033[0;34mExit\033[0m\n");
+    printf("\033[0;32mEnter your choice: \033[0m"); 
         scanf("%d", &choice);
         clearBuffer();
 
@@ -62,11 +62,11 @@ void addBook() {
     
     do {
         if (bookCount < MAX_BOOKS) {
-            printf("Enter book title, author, price, and quantity (title/author/price/quantity): ");
+            printf("\033[0;35mEnter book title, author, price, and quantity (title/author/price/quantity) \033[0m: ");
             scanf("%[^/]/%[^/]/%f/%d", titles[bookCount], authors[bookCount], &prices[bookCount], &quantities[bookCount]);
             clearBuffer();
 
-            printf("Book added successfully!\n");
+            printf("\033[0;32mBook added successfully!\n\033[0m");
             printf("Title: %s, Author: %s, Price: %.2f, Quantity: %d\n", 
                    titles[bookCount], authors[bookCount], prices[bookCount], quantities[bookCount]);
 
@@ -76,7 +76,7 @@ void addBook() {
             break;
         }
 
-        printf("Do you want to add another book? (y/n): ");
+        printf("\033[0;35mDo you want to add another book? (y/n): \033[0m");
         scanf(" %c", &another); // Note the space before %c to consume any leftover newline
         clearBuffer();
 
@@ -87,8 +87,9 @@ void displayBooks(){
         
     for (int i = 0; i <bookCount ; i++)
     {
-        printf("\nTitle: %s, Author: %s, Price: %.2f, Quantity: %d",
-        titles[i],authors[i],prices[i],quantities[i]);
+    printf("\nTitle: %s, Author: %s, Price: %.2f, Quantity: %d",
+       titles[i], authors[i], prices[i], quantities[i]);
+
         // printf("\n");
     }
 
@@ -97,7 +98,7 @@ void displayBooks(){
 // Function to search for a book by its title
 void searchBook() {
     char title[TITLE_LEN];
-    printf("Enter book title to search: ");
+    printf("\033[0;32mEnter book title to search:\033[0m ");
     scanf(" %[^\n]", title); // Read title to search
     clearBuffer();
     for (int i = 0; i < bookCount ; i++) {
@@ -108,34 +109,34 @@ void searchBook() {
             return; // Exit function after finding
         }
     }
-    printf("Book not found.\n"); // Notify if book is not found
+    printf("\033[0;31mBook not found.\n\033[0m"); // Notify if book is not found
 }
 
 // Function to update the quantity of a book
 void updateQuantity() {
     char title[TITLE_LEN];
-    printf("Enter book title to update: ");
+    printf("\033[0;32mEnter book title to update: \033[0m");
     scanf(" %[^\n]", title); // Read title to update
     clearBuffer();
     for (int i = 0; i < bookCount; i++) {
         if (strcmp(titles[i], title) == 0) { // Check for matching title
-            printf("Enter new quantity: ");
+            printf("\033[0;32mEnter new quantity:\033[0m ");
             scanf("%d", &quantities[i]); // Update quantity
             clearBuffer();
 
-            printf("quantity updated successfully!: ");
+            printf("\033[0;32mquantity updated successfully!:\033[0m ");
             printf("%s, Author: %s, Price: %.2f, Quantity: %d\n", 
                     titles[i], authors[i], prices[i], quantities[i]);
 
             return; // Exit function after updating
         }
     }
-    printf("Book not found.\n"); // Notify if book is not found
+    printf("\033[0;31mBook not found.\n\033[0m"); // Notify if book is not found
 }
 // Function to delete a book from stock
 void deleteBook() {
     char title[TITLE_LEN];
-    printf("Enter book title to delete: ");
+    printf("\033[0;32mEnter book title to delete:\033[0m");
     scanf(" %[^\n]", title); // Read title to delete
     clearBuffer();
     for (int i = 0; i < bookCount; i++) {
@@ -148,11 +149,11 @@ void deleteBook() {
                 quantities[j] = quantities[j + 1];
             }
             bookCount--; // Decrement the book count
-            printf("Book deleted.\n");
+            printf("\033[0;32mBook deleted.\033[0m");
             return; // Exit function after deletion
         }
     }
-    printf("Book not found.\n"); // Notify if book is not found
+    printf("\033[0;31mBook not found.\n\033[0m"); // Notify if book is not found
 }
 
 // Function to display the total number of books in stock
